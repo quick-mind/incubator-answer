@@ -1,0 +1,41 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+
+/build/*/*/*
+/build/*.json
+/build/*.html
+/build/*.txt
+
+# misc
+.DS_Store
+.env*.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+Thumbs.db
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.log
+yarn.lock
+package-lock.json
+.eslintcache
+/.vscode/
+
+/* !/src/plugins
+/src/plugins/*
+!/src/plugins/builtin
+!/src/plugins/Demo
+!/src/plugins/answer-chart
+!/src/plugins/answer-formula
+/src/plugins/*/*.go

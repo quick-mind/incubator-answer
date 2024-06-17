@@ -1,0 +1,154 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+import { FC, memo, useState } from 'react';
+import { Form, Button } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+
+import type { PasswordResetReq, FormDataType } from '@/common/interface';
+import { resetPassword } from '@/services';
+import { handleFormError, scrollToElementTop } from '@/utils';
+import { useCaptchaPlugin } from '@/utils/pluginKit';
+
+interface IProps {
+  // eslint-disable-next-line react/no-unused-prop-types
+  visible?: boolean;
+  callback: (param: number, email: string) => void;
+}
+
+const Index: FC<IProps> = ({ callback }) => {
+  const { t } = useTranslation('translation', { keyPrefix: 'account_forgot' });
+  const [formData, setFormData] = useState<FormDataType>({
+    e_mail: {
+      value: '',
+      isInvalid: false,
+      errorMsg: '',
+    },
+  });
+
+  const emailCaptcha = useCaptchaPlugin('email');
+
+  const handleChange = (params: FormDataType) => {
+    setFormData({ ...formData, ...params });
+  };
+
+  const checkValidated = (): boolean => {
+    let bol = true;
+
+    if (!formData.e_mail.value) {
+      bol = false;
+      formData.e_mail = {
+        value: '',
+        isInvalid: true,
+        errorMsg: t('email.msg.empty'),
+      };
+    }
+    setFormData({
+      ...formData,
+    });
+    if (!bol) {
+      const ele = document.getElementById('email');
+      scrollToElementTop(ele);
+    }
+
+    return bol;
+  };
+
+  const sendEmail = (e?: any) => {
+    if (e) {
+      e.preventDefault();
+    }
+    const params: PasswordResetReq = {
+      e_mail: formData.e_mail.value,
+    };
+
+    const captcha = emailCaptcha?.getCaptcha();
+    if (captcha?.verify) {
+      params.captcha_code = captcha.captcha_code;
+      params.captcha_id = captcha.captcha_id;
+    }
+
+    resetPassword(params)
+      .then(async () => {
+        await emailCaptcha?.close();
+        callback?.(2, formData.e_mail.value);
+      })
+      .catch((err) => {
+        if (err.isError) {
+          emailCaptcha?.handleCaptchaError(err.list);
+          const data = handleFormError(err, formData);
+          setFormData({ ...data });
+          const ele = document.getElementById(err.list[0].error_field);
+          scrollToElementTop(ele);
+        }
+      });
+  };
+
+  const handleSubmit = async (event: any) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (!checkValidated()) {
+      return;
+    }
+
+    if (!emailCaptcha) {
+      sendEmail();
+      return;
+    }
+
+    emailCaptcha.check(() => {
+      sendEmail();
+    });
+  };
+
+  return (
+    <Form noValidate onSubmit={handleSubmit} autoComplete="off">
+      <Form.Group controlId="email" className="mb-3">
+        <Form.Label>{t('email.label')}</Form.Label>
+        <Form.Control
+          required
+          type="email"
+          value={formData.e_mail.value}
+          isInvalid={formData.e_mail.isInvalid}
+          onChange={(e) => {
+            handleChange({
+              e_mail: {
+                value: e.target.value,
+                isInvalid: false,
+                errorMsg: '',
+              },
+            });
+          }}
+        />
+        <Form.Control.Feedback type="invalid">
+          {formData.e_mail.errorMsg}
+        </Form.Control.Feedback>
+      </Form.Group>
+
+      <div className="d-grid mb-3">
+        <Button variant="primary" type="submit">
+          {t('btn_name')}
+        </Button>
+      </div>
+    </Form>
+  );
+};
+
+export default memo(Index);

@@ -1,0 +1,354 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+@import 'common/variable';
+@import '~bootstrap/scss/bootstrap';
+@import '~bootstrap-icons';
+@import 'common/color';
+
+.bg-gray-300 {
+  background-color: var(--an-gray-300);
+}
+
+.focus {
+  color: $input-focus-color !important;
+  background-color: $input-focus-bg !important;
+  border-color: $input-focus-border-color !important;
+  outline: 0 !important;
+  @if $enable-shadows {
+    @include box-shadow($input-box-shadow, $input-focus-box-shadow);
+  } @else {
+    box-shadow: $input-focus-box-shadow !important;
+  }
+}
+
+html,
+body {
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+// If the image does not have a `src` attribute, it must break and may not trigger the `onerror` event.
+// With or without the `alt` attribute, it is visually hidden directly.
+img[src=""] {
+  visibility: hidden !important;
+}
+
+.btn-link {
+  text-decoration: none;
+}
+
+.fs-12 {
+  font-size: 0.75rem;
+}
+
+.small {
+  font-size: 0.875rem;
+}
+
+.pic-auth-modal {
+  width: 25%;
+}
+
+.no-toggle {
+  &::after {
+    display: none;
+  }
+}
+
+.unread-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  position: absolute;
+  left: 15px;
+  top: 0;
+  border: 1px solid #fff;
+}
+
+.badge-tag {
+  display: inline-block;
+  font-size: 14px;
+  background: rgba($blue-100, 0.5);
+  padding: 0 7px 1px;
+  color: $blue-700;
+  border: 1px solid transparent;
+  &:hover {
+    color: $blue-700;
+    background: $blue-100;
+  }
+}
+
+.badge-tag-required {
+  background: $gray-200;
+  color: $gray-700;
+  border: 1px solid $gray-400;
+  &:hover {
+    color: $gray-700;
+    background: $gray-300;
+  }
+}
+
+.badge-tag-reserved {
+  background: rgba($orange-100, 0.5);
+  color: $orange-700;
+  border: 1px solid $orange-100;
+  &:hover {
+    color: $orange-700;
+    background: rgba($orange-100, 1);
+  }
+}
+
+.divide-line {
+  border-bottom: 1px solid rgba(33, 37, 41, 0.25);
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+#root > footer {
+  margin-top: auto !important;
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.bg-f5 {
+  background-color: var(--an-f5);
+}
+
+.btn-no-border,
+.btn-no-border:hover,
+.btn-no-border:focus,
+.btn-no-border:active:focus {
+  border: none;
+  box-shadow: none;
+}
+
+.pointer:hover {
+  cursor: pointer;
+}
+
+.resize-none {
+  resize: none;
+}
+
+.split-dot {
+  margin-left: 0.25rem !important;
+  margin-right: 0.25rem !important;
+  &:before {
+    content: '\2022';
+    color: #6c757d;
+  }
+}
+
+.name-ellipsis {
+  display: inline-block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.text-truncate-1,
+.text-truncate-2,
+.text-truncate-3,
+.text-truncate-4 {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.text-truncate-2 {
+  -webkit-line-clamp: 2;
+}
+.text-truncate-3 {
+  -webkit-line-clamp: 3;
+}
+.text-truncate-4 {
+  -webkit-line-clamp: 4;
+}
+
+.last-p {
+  p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.me-10 {
+  margin-right: 10px;
+}
+
+.warning {
+  background-color: var(--an-inbox-warning);
+}
+
+.fit-content {
+  height: fit-content;
+  width: fit-content;
+  flex: none;
+}
+
+// fix bug for React-Bootstrap Form.Text
+.form-text {
+  display: inline-block;
+}
+
+.fmt {
+  width: 100%;
+  h1 {
+    @extend .fs-3;
+    margin-top: 2rem;
+  }
+  h2 {
+    @extend .fs-4;
+    margin-top: 2rem;
+  }
+  h3 {
+    @extend .fs-5;
+    margin-top: 2rem;
+  }
+  h4 {
+    @extend .fs-6;
+    margin-top: 2rem;
+  }
+  h5 {
+    @extend .small;
+    margin-top: 2rem;
+  }
+  h6 {
+    @extend .fs-12;
+    margin-top: 2rem;
+  }
+  img {
+    max-width: 100%;
+  }
+  video {
+    max-width: 100%;
+  }
+  p {
+    > code {
+      background-color: var(--an-e9ecef);
+      color: var(--an-212529);
+      padding: 2px 4px;
+      border-radius: 0.25rem;
+    }
+  }
+  pre {
+    background-color: var(--an-e9ecef);
+    border-radius: 0.25rem;
+    padding: 1rem;
+  }
+  blockquote {
+    border-left: 0.25rem solid #ced4da;
+    padding: 1rem;
+    color: #6c757d;
+    background-color: var(--an-e9ecef);
+    p {
+      color: var(--bs-body-color);
+    }
+    > p:last-child {
+      margin-bottom: 0;
+    }
+  }
+  table {
+    td,
+    th {
+      word-break: initial;
+    }
+  }
+  ol ol,ol ul,ul ol,ul ul {
+    margin-bottom: 1rem;
+  }
+}
+
+.upload-img-wrap {
+  flex-grow: 1;
+  height: 128px;
+}
+
+.review-text-delete {
+  color: #842029;
+  background-color: #f8d7da;
+  text-decoration: line-through;
+  .review-text-add {
+    text-decoration: none;
+  }
+}
+
+.review-text-add {
+  color: #0f5132;
+  background-color: #d1e7dd;
+  text-decoration: none !important;
+}
+
+.rotate-90-deg {
+  display: inline-block;
+  transform: rotate(90deg);
+  transition: transform 0.2s;
+}
+.rotate-0-deg {
+  display: inline-block;
+  transform: rotate(0deg);
+  transition: transform 0.2s;
+}
+
+.pre-line {
+  white-space: pre-wrap;
+}
+
+.reset-p {
+  p {
+    margin-bottom: 0;
+  }
+}
+
+@keyframes bg-fade-out {
+  0%,
+  25% {
+    background-color: var(--bs-highlight-bg);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+.bg-fade-out {
+  animation: bg-fade-out 2s ease 0.3s;
+}
+
+
+.btnSvg, .btnSvg:hover {
+  display: inline-block;
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+  vertical-align: -0.125em;
+}
+
+.max-width-200 {
+  max-width: 200px;
+}
+
+.alert-exist {
+  color: var(--an-alert-exist-color);
+}
