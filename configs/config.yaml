@@ -17,7 +17,7 @@
 
 server:
   http:
-    addr: 0.0.0.0:80
+    addr: 0.0.0.0:8092
 data:
   database:
     driver: "sqlite3"
