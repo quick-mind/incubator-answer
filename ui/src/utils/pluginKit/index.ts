@@ -20,7 +20,7 @@
 import React from 'react';
 
 import builtin from '@/plugins/builtin';
-import * as allPlugins from '@/plugins';
+// import * as allPlugins from '@/plugins';
 import type * as Type from '@/common/interface';
 import { LOGGED_TOKEN_STORAGE_KEY } from '@/common/constants';
 import { getPluginsStatus } from '@/services';
@@ -81,10 +81,10 @@ class Plugins {
   }
 
   registerPlugins() {
-    Object.keys(allPlugins).forEach((key) => {
-      const plugin = allPlugins[key];
-      this.register(plugin);
-    });
+    // Object.keys(allPlugins).forEach((key) => {
+    //   const plugin = allPlugins[key];
+    //   this.register(plugin);
+    // });
   }
 
   register(plugin: Plugin) {
