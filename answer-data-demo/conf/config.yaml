@@ -1,0 +1,19 @@
+debug: false
+server:
+  http:
+    addr: 0.0.0.0:8092
+data:
+  database:
+    driver: postgres
+    connection: host=localhost port=5432 user=postgres password=password dbname=answer sslmode=disable
+  cache:
+    file_path: answer-data/cache/cache.db
+i18n:
+  bundle_dir: answer-data/i18n
+service_config:
+  upload_path: answer-data/uploads
+swaggerui:
+  show: true
+  protocol: http
+  host: 127.0.0.1
+  address: :8092
