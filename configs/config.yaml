@@ -17,7 +17,7 @@
 
 server:
   http:
-    addr: 0.0.0.0:8092
+    addr: 0.0.0.0:8181
 data:
   database:
     driver: "sqlite3"
@@ -30,6 +30,6 @@ swaggerui:
   show: true
   protocol: http
   host: 127.0.0.1
-  address: ':80'
+  address: ':8181'
 service_config:
   upload_path: "/data/uploads"
